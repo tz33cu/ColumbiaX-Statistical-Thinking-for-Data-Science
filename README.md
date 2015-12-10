@@ -21,4 +21,4 @@ This repo contains some R learning activities we created for our the [course I](
 
 These learning activities are given during week 3 of our edX course. All these RMarkdown files can be run after installing R, Rstudio, and the knitr package. We use data sets that come with standard R installation. These RMarkdown (rmd) files are intended to be downloaded locally and run on your personal computer. Download these files to your computer and save them in a designated folder (such as one created for this course). To explore the R codes, in Rstudio, use the file menu to open the saved RMarkdown file and click on "knit html". 
 
-<img src="https://rstudioblog.files.wordpress.com/2014/06/r-markdown-formats.png" width="300" />
+<img src="https://rstudioblog.files.wordpress.com/2014/06/r-markdown-formats.png" width="500" />
