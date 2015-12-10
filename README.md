@@ -1,4 +1,4 @@
-# ColumbiaX series on Data Science and Analytics
+## ColumbiaX series on Data Science and Analytics
 ## Course I: Statistical Thinking for Data Science and Analytics
 
 This repo contains some R learning activities we created for our the [course I](https://www.edx.org/course/statistical-thinking-data-science-columbiax-ds101x) "Statistical Thinking for Data Science and Analytics" for the [ColumbiaX series on Data Science and Analytics](http://datascience.columbia.edu/columbia-and-edx-launch-online-data-science-education-series) on [edX](https://www.edx.org/xseries/data-science-analytics-context). 
