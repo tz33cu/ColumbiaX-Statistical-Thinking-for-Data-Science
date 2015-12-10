@@ -3,6 +3,6 @@ This repo contains some R learning activities we created for our the [course I](
 
 These learning activities are given during week 3 of our edX course. 
 
-- [Learning activity 1](ColumbiaX-Statistical-Thinking-for-Data-Science/R Learning Activities/LearningActivity-1.Rmd): Introduction to R
-- Learning activity 2: Association 1: analysis of variance
-- Learning activity 3: Association 2: simple linear regression
+- [Learning activity 1](https://github.com/tz33cu/ColumbiaX-Statistical-Thinking-for-Data-Science/blob/master/R%20Learning%20Activities/LearningActivity-1.Rmd): Introduction to R
+- [Learning activity 2](https://github.com/tz33cu/ColumbiaX-Statistical-Thinking-for-Data-Science/blob/master/R%20Learning%20Activities/LearningActivity-2.Rmd): Association 1: analysis of variance
+- [Learning activity 3](https://github.com/tz33cu/ColumbiaX-Statistical-Thinking-for-Data-Science/blob/master/R%20Learning%20Activities/LearningActivity-3.Rmd): Association 2: simple linear regression
