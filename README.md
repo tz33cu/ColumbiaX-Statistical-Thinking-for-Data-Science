@@ -1,4 +1,4 @@
-## Learning activities for ColumbiaX series on Data Science and Analytics
+### Learning activities for ColumbiaX series on Data Science and Analytics
 
 ###Course I: Statistical Thinking for Data Science and Analytics
 
