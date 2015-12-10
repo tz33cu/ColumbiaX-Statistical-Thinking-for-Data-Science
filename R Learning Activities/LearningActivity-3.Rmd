@@ -96,6 +96,7 @@ Within the loop, we will implement the following steps for each repetition.
 + Step 2: run least square regression on the selected states only
 + Step 3: compute a 95% confidence band for the true regression line in the population using the sample. 
 
+**[Note]** The states are randomly selected in the following. Therefore, every time you run this file, you will produce different random samples that will give different estimated least regression lines. 
 
 ```{r, fig.height=8, fig.width=8}
 par(mfrow=c(2,2)) # create a panel of four plotting areas
@@ -103,8 +104,22 @@ par(mfrow=c(2,2)) # create a panel of four plotting areas
 for(i in 1:4){
   ## Plot the population
   plot(life.exp~inc, data=statedata,
-       xlab="Life Expectancy", ylab="Income")
+       xlab="Life Expectancy", ylab="Income",
+       title=paste("Random sample", format(i)),
+       ylim=c(min(life.exp), max(life.exp)+0.3))
   abline(model1)
+  if(i==1){
+    legend(3030, 74.2, 
+           pch=c(NA, NA, NA, 1, 16), 
+           lty=c(1, 1, 2, NA, NA),
+           col=c(1, 2, 2, 1, 2),
+           c("population truth", "sample estimate",
+             "sample confidence band", 
+             "states", "sampled"),
+           cex=0.7,
+           bty="n"
+           )
+  }
   ## Select the sample
   selected.states=sample(1:50, 10)
   points(statedata[selected.states,"inc"], 
