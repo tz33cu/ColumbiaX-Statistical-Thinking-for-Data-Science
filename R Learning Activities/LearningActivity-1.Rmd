@@ -1,0 +1,83 @@
+---
+title: "Learning Activity: Introduction to R"
+author: "Tian Zheng"
+date: "December 1, 2015"
+output: html_document
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+### A very brief introduction
+- The S language was developed at AT&T Bell labs by Rick Becker, John Chambers and Allan Wilks, starting as early as in the 1970s.
+- It was commercialized as S-PLUS.
+- `R` is the open-source implementation of S. (google ``R programming language, wikipedia'' to read more).
+- From `R` FAQs: "Why is `R` named `R`?:
+
+    "The name is partly based on the (first) names of the first two     `R` authors (Robert Gentleman and Ross Ihaka), and partly a        play on the name of the Bell Labs language `S'."
+
+- (IMPORTANT!!) `R` is case-sensitive.
+
+### Getting help when using `R`
+-  CRAN has a number of manuals online.
+-  You can find help using the following `R` commands.
+-  `help(sort)`--using exact command names and this command needs to be loaded already. same as `\sf ?sort`.
+-  `apropos(``sor'')`--part of a command name.
+-  `help.search(``sort'')`--search the description of commands.
+-  `example(sort)`--show you example usage of a command.
+-  `RSiteSearch(``sort'')`--search for online available help.
+
+### Data in `R`
+-  In `R`, data and functions are called `R` objects.
+-  Variables are stored as vectors in `R`.
+-  A data set is usually in the form of a matrix or array or data frame.
+-  Data frame can be made from vectors of the same length.
+-  A list is a vector of `R` data objects.
+-  Value assignment using `<-` or `=`.
+
+### Basic opertaions
+First let's load some data. Type `data()` in the `Console` window will open a list of all the datasets that were included with the standard installation. 
+
+`R` uses basic syntax for simple arithmatics. In the following, the gray blocks are `R` codes you can tyep into the `console` window to try them out. The white blaocks are outputs. 
+
+```{r}
+2+3
+3^2
+4/2
+log(10)
+sin(pi/3)
+```
+
+You can create a variable as a vector of data values, with each element representing the value from an individual. $X=[X_1, \ldots, X_n]$. `length()` gives you the number of entries (i.e., the sample size). `mean()` calculates the sample average of the values. Similarly, we have other founctions that compute simple statistics such as `median`, `var`, `quantile`. `table` summarizes the counts of occurances corresponding to unique values of `x`. 
+```{r}
+x=c(3, 1, 4, 2, 1, 4, 5, 1,4)
+length(x)
+mean(x)
+table(x)
+```
+
+### Load a R data set
+
+Now let's load a data set that comes with standard `R` installation: `InsectSprays`.
+
+You can read about the documentation of this data set by typing `help(InsectSprays)` in the Console window. 
+
+```{r}
+data(InsectSprays)
+dim(InsectSprays)
+```
+
+- The function `dim` tells us the dimension of this data set. It is a $72 \times 2$ matrix, with each row being an experiment (individual) and each column being a variable (counts of insects, types of insecticide).
+
+- In this example, we refer to different columns of the data set by names of the column `InsectSprays[, "count"]`. We can also refer to the columns by number, `InsectSprays[,1]`.
+
+You can summarize the values of the variable `spray` (types of insecticide) using `table` and make a pie chart using the function `pie`.
+```{r}
+table(InsectSprays[,"spray"])
+pie(table(InsectSprays[,"spray"]))
+```
+
+You can summarize the values of the variable `count` (count of insects) using `summary` and visualize using `hist`.
+```{r}
+summary(InsectSprays[,"count"])
+hist(InsectSprays[,"count"], xlab="Insect Counts", main="")
+```
