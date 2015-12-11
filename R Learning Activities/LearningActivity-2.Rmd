@@ -18,7 +18,7 @@ plot(count~spray, data=InsectSprays,
      ylab="Counts of Insects")
 ```
 
-- In this module, we learnt about the method of Analysis of Variance. In the output, you will see a column under the heading `Sum Sq`, which stands for sum of squares. 
+- In this module, we learnt about the method of *Analysis of Variance*. In the output, you will see a column under the heading `Sum Sq`, which stands for sum of squares. 
 
 - The value in the row `spary` is the group sum of squares (SSG) as the groups are defined by the values of `spray`. The value in the row `Residuals` is the error sum of squares (SSE). 
 
