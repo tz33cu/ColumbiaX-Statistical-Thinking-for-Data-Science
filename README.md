@@ -2,9 +2,14 @@
 
 ###Course I: Statistical Thinking for Data Science and Analytics
 
-This repo contains some R learning activities we created for our the [course I](https://www.edx.org/course/statistical-thinking-data-science-columbiax-ds101x) "Statistical Thinking for Data Science and Analytics" for the [ColumbiaX series on Data Science and Analytics](http://datascience.columbia.edu/columbia-and-edx-launch-online-data-science-education-series) on [edX](https://www.edx.org/xseries/data-science-analytics-context). 
+#### Week 2
+[Excel sheet](https://github.com/tz33cu/ColumbiaX-Statistical-Thinking-for-Data-Science/blob/master/Excel%20Learning%20Activities/Pi_toothpick_experiment.xlsx?raw=true) for the [Buffon's needle](https://en.wikipedia.org/wiki/Buffon%27s_needle) learning activity.
 
-### Before you start
+#### Week 2
+
+The folder *R Learning activities* contains some R learning activities we created for week 3 of our [course I](https://www.edx.org/course/statistical-thinking-data-science-columbiax-ds101x) "Statistical Thinking for Data Science and Analytics" for the [ColumbiaX series on Data Science and Analytics](http://datascience.columbia.edu/columbia-and-edx-launch-online-data-science-education-series) on [edX](https://www.edx.org/xseries/data-science-analytics-context). 
+
+##### Before you start
 
 + Download R (and choose the version according to your computer’s platform) from https://cran.rstudio.com/. 
 + Open (double click) the downloaded package to start standard installation. 
@@ -13,7 +18,7 @@ This repo contains some R learning activities we created for our the [course I](
 + In the lower left “Console” window, type `install.packages(“knitr”)`
 + You will be asked to select a respiratory. Please just choose one that is close to you or just choose “https://cran.rstudio.com/.”
 
-### Learning activities
+##### Learning activities
 
 - [Learning activity 1](https://github.com/tz33cu/ColumbiaX-Statistical-Thinking-for-Data-Science/blob/master/R%20Learning%20Activities/LearningActivity-1.Rmd): Introduction to R
 - [Learning activity 2](https://github.com/tz33cu/ColumbiaX-Statistical-Thinking-for-Data-Science/blob/master/R%20Learning%20Activities/LearningActivity-2.Rmd): Association 1: analysis of variance
