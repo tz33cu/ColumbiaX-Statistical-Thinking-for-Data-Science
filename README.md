@@ -5,7 +5,7 @@
 #### Week 2
 [Excel sheet](https://github.com/tz33cu/ColumbiaX-Statistical-Thinking-for-Data-Science/blob/master/Excel%20Learning%20Activities/Pi_toothpick_experiment.xlsx?raw=true) for the [Buffon's needle](https://en.wikipedia.org/wiki/Buffon%27s_needle) learning activity.
 
-#### Week 2
+#### Week 3
 
 The folder *R Learning activities* contains some R learning activities we created for week 3 of our [course I](https://www.edx.org/course/statistical-thinking-data-science-columbiax-ds101x) "Statistical Thinking for Data Science and Analytics" for the [ColumbiaX series on Data Science and Analytics](http://datascience.columbia.edu/columbia-and-edx-launch-online-data-science-education-series) on [edX](https://www.edx.org/xseries/data-science-analytics-context). 
 
