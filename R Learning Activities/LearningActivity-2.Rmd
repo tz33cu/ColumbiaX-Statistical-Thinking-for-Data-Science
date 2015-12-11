@@ -22,7 +22,7 @@ plot(count~spray, data=InsectSprays,
 
 - The value in the row `spary` is the group sum of squares (SSG) as the groups are defined by the values of `spray`. The value in the row `Residuals` is the error sum of squares (SSE). 
 
-- The `anova` command evaluate the Analysis of Variance test to see whether the association observed between `spray` and `count` is statistical significant. The null hypothesis is that the mean of `count` does not depend on values of `spray`. 
+- The `anova` command evaluate the Analysis of Variance test to see whether the association observed between `spray` and `count` is statistically significant. The null hypothesis is that the mean of `count` does not depend on values of `spray`. 
 
 - In this example, the p value (value under `Pr(>F)`) is quite small. Here `<2.2 e -16` means $<2.2\times 10^{-16}$. This indicates the patterns we see in the above plot is quite unlikely to occur purely by chance. 
 
