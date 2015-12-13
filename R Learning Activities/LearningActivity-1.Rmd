@@ -18,7 +18,7 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 - (IMPORTANT!!) `R` is case-sensitive.
 
 ### Getting help when using `R`
--  The official R website CRAN <https://cran.r-project.org> has a number of manuals online.
+-  The official R website [CRAN](https://cran.r-project.org) has a number of manuals online.
 -  You can find help using the following `R` commands. 
 -  `help(sort)`--using exact command names and this command needs to be loaded already. same as `\sf ?sort`.
 -  `apropos(``sor'')`--part of a command name.
