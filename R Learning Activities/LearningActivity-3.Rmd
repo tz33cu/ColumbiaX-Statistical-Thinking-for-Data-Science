@@ -5,7 +5,7 @@ date: "December 1, 2015"
 output: html_document
 ---
 
-In this example, we are going to use the dataset `state.x77` that comes with standard `R` installation. It is a data set about the 50 states of united states. 
+In this example, we are going to use the dataset `state.x77` that comes with standard `R` installation. It is a dataset about the 50 states of United States. 
 
 Type `help(state.x77)` in your console window to read more about this data set. 
 
@@ -62,7 +62,7 @@ text(life.exp~inc, data=statedata, state.abb)
 Now let's fit the following linear regression model between $Y$ (`life.exp`) and $X$ (`inc`)
 $$ Y= \beta_0 +\beta_1 X + \varepsilon. $$
 
-Here $\beta_0$ and $\beta_1$ are the regression coefficients of the model and $\varepsilon$ represents independent random errors. 
+Here $\beta_0$ and $\beta_1$ are the regression coefficients of the model and $\varepsilon$ represents independent random error. 
 
 Fitting a linear regression is to derive
 $$\hat{Y} = b_0 + b_1 X.$$
