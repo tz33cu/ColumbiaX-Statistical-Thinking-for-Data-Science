@@ -18,8 +18,8 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 - (IMPORTANT!!) `R` is case-sensitive.
 
 ### Getting help when using `R`
--  CRAN has a number of manuals online.
--  You can find help using the following `R` commands.
+-  The official R website CRAN <https://cran.r-project.org> has a number of manuals online.
+-  You can find help using the following `R` commands. 
 -  `help(sort)`--using exact command names and this command needs to be loaded already. same as `\sf ?sort`.
 -  `apropos(``sor'')`--part of a command name.
 -  `help.search(``sort'')`--search the description of commands.
@@ -29,7 +29,7 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 ### Data in `R`
 -  In `R`, data and functions are called `R` objects.
 -  Variables are stored as vectors in `R`.
--  A data set is usually in the form of a matrix or array or data frame.
+-  A data set is usually in the form of a matrix, array or data frame.
 -  Data frame can be made from vectors of the same length.
 -  A list is a vector of `R` data objects.
 -  Value assignment using `<-` or `=`.
@@ -37,7 +37,7 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 ### Basic opertaions
 First let's load some data. Type `data()` in the `Console` window will open a list of all the datasets that were included with the standard installation. 
 
-`R` uses basic syntax for simple arithmatics. In the following, the gray blocks are `R` codes you can tyep into the `console` window to try them out. The white blaocks are outputs. 
+`R` uses basic syntax for simple arithmetics. In the following, the gray blocks are `R` codes you can tyep into the `console` window to try them out. The white blaocks are outputs. 
 
 ```{r}
 2+3
