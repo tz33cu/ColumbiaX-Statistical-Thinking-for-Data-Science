@@ -1,0 +1,189 @@
+---
+title: "Learning activity - Bayesian Data Analysis"
+author: "Eva Ascarza and Tian Zheng"
+date: "December 21, 2015"
+output: html_document
+---
+
+In this learning activity, we will first simulate some customer behavior data according to a model and then we will use Bayesian modeling and `rstan` to model the simulated data. Simulation is a great way of learning about how a method works.
+
+If you have not done so already, you need to first install `rstan` by typing `install.packages("rstan"")` in your console windown (lower left panel in Rstudio).
+
+```{r}
+require(rstan)
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores()-2)
+```
+
+### Simulate the data
+We will simulate a data set with 5000 invidiuals drawn from a population of musume members. Among museum members,
+
++ $X_1$ `gender`: Approximately 60% are females. 
++ $X_2$ `fotography`: 50% expressed interest for fotography.
++ $X_3$ `sculpture`:30% expressed interest for sculpture.
++ $X_4$ `digital_content`: The average number of digital contents consumed by the members is 0.5.
++ $X_5$ `months_since`: The average length since last visit is 5 months. 
+
+```{r}
+N <- 5000
+# we assume 5000 members
+female <- rbinom(N,1,0.6) 
+# simulate 60% of female
+fotography <- rbinom(N,1,0.5) 
+# simulate 50% of customers who expressed interest for fotography
+sculpture <- rbinom(N,1,0.3) 
+# simulate 50% of customers who expressed interest for sculpture
+digital_content <- rpois(N,0.5) 
+# simulate digital content
+months_since <- rpois(N,5) 
+# simulate months since last visit, with a max of 12
+months_since[months_since>12] <- 12
+```
+
+### simulate renewal behavior and prepare the data
+We are interested in whether these members will renew their membership. $Y$ (`renewal`) equals 1 if the member decides to renew, 0 otherwise. We assume the following [probit model](https://en.wikipedia.org/wiki/Probit_model) for Y given X.
+
+$$
+  P(Y=1 | X_1, X_2, X_3, X_4, X_5) = \Phi(\beta_0 +\beta_1 X_1 +\beta_2 X_2 + \beta_3 X_3 +\beta_4 X_4 + \beta_5 X_5)
+$$
+where $\Phi(\cdot)$ is the [cumulative distribution function (CDF)](https://en.wikipedia.org/wiki/Cumulative_distribution_function) of the standard normal distribution. 
+
+```{r}
+beta0 <- 0.6
+beta1 <- 0.9
+beta2 <- 0.6
+beta3 <- 0.01
+beta4 <- -0.01
+beta5 <- -0.2
+
+prob_simul <- pnorm(beta0 + beta1*female + beta2*fotography + beta3*sculpture + beta4*digital_content + beta5*months_since)
+renewal <- rbinom(N,1,prob_simul) 
+```
+
+### Prepare data for Stan
+We first create an X matrix that combines all the input variables, including a column corresponding to the intercept. `cbind` is the `R` command for combining vectors as columns. 
+```{r}
+X <- cbind(rep(1,N),
+           female,
+           fotography,
+           sculpture,
+           digital_content,
+           months_since)
+
+# assign column names
+colnames(X) <- c("intercept",
+                 "female",
+                 "fotography",
+                 "sculpture",
+                 "digital_content",
+                 "months_since")
+K<-dim(X)[2]
+```
+
+### Code for Stan
+
+`stan` uses a specific modeling syntax. It requires the specification of the types of data and parameters, in addition to model statements. 
+
+```{r}
+probit <- '
+data{
+  int<lower=0> N; # number of observations
+  int<lower=0> K; # number of parameters
+
+  int<lower=0,upper=1> y[N];
+  vector[K] X[N];
+}
+parameters{
+  vector[K] beta;
+}
+model{
+  beta ~ cauchy(0,5);
+
+for(j in 1:N)
+  y[j] ~ bernoulli(Phi_approx(dot_product(X[j],beta)));
+}
+'
+```
+
+### Run STAN
+
+The initialization step of `stan` may take a little while but the running time should
+be just a couple of minuets. 
+
+```{r}
+data_list <- list(N=N,K=K,y=renewal,X=X)
+fit <- stan(model_code=probit,
+            data=data_list,
+            warmup=2000,
+            iter=4000,
+            chains=2)
+```
+
+### SUMMARY of restuls
+
+In the summary of output, the posterior distribution for each model coefficient is summaried using its percentiles. 
+
+```{r}
+print(fit)
+fitlist <- extract(fit)
+```
+
+#### Convergence
+
+Convergence plots show whether the draws from posterior distributions are well mixed together. 
+
+```{r}
+par(mfrow=c(2,3))
+plot(fitlist$beta[,1],type="l",xlab="",ylab="Intercept")
+plot(fitlist$beta[,2],type="l",xlab="",ylab="Gender Coefficient")
+plot(fitlist$beta[,3],type="l",xlab="",ylab="Fotography Coefficient")
+plot(fitlist$beta[,4],type="l",xlab="",ylab="Sculpture Coefficient")
+plot(fitlist$beta[,5],type="l",xlab="",ylab="Digital content Coefficient")
+plot(fitlist$beta[,6],type="l",xlab="",ylab="Months since login")
+```
+
+#### Histograms of posterior distributions
+
+Posterior distributions of model coefficients.
+
+```{r}
+par(mfrow=c(2,3))  
+par(bg="white", fg="black", 
+    col.lab="black", col.axis="black", 
+    col.main="black", lwd=1)
+#Gender
+param <- fitlist$beta[,2]
+min <- min(0,min(param))
+max <- max(0,max(param))
+hist(param,breaks=seq(min-0.05,max+0.05,0.05),main="Female",xlab="", ylab="",yaxt='n')
+axis(1, lab=T , lwd=2)
+abline(v=beta1, col=2)
+#PHOTO
+param <- fitlist$beta[,3]
+min <- min(0,min(param))
+max <- max(0,max(param))
+hist(param,breaks=seq(min-0.04,max+0.04,0.04),main="Photography",xlab="", ylab="",yaxt='n')
+axis(1, lab=T , lwd=2)
+abline(v=beta2, col=2)
+#SCULPTURE
+param <- fitlist$beta[,4]
+min <- min(0,min(param))
+max <- max(0,max(param))
+hist(param,breaks=seq(min-0.03,max+0.03,0.03),main="Sculpture",xlab="", ylab="",yaxt='n')
+axis(1, lab=T , lwd=2)
+abline(v=beta3, col=2)
+#ONLINE CONTENT
+param <- fitlist$beta[,5]
+min <- min(0,min(param))
+max <- max(0,max(param))
+hist(param,breaks=seq(min-0.02,max+0.02,0.02),main="Downloads",xlab="", ylab="",yaxt='n')
+axis(1, lab=T , lwd=2)
+abline(v=beta4, col=2)
+#VISIT
+param <- fitlist$beta[,6]
+min <- min(0,min(param))
+max <- max(0,max(param))
+hist(param,breaks=seq(min-0.01,max+0.01,0.01),main="Months since visit",xlab="", ylab="",yaxt='n')
+axis(1, lab=T , lwd=2)
+abline(v=beta5, col=2)
+```
