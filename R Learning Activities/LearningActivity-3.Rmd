@@ -105,7 +105,7 @@ for(i in 1:4){
   ## Plot the population
   plot(life.exp~inc, data=statedata,
        xlab="Life Expectancy", ylab="Income",
-       title=paste("Random sample", format(i)),
+       main=paste("Random sample", format(i)),
        ylim=c(min(life.exp), max(life.exp)+0.3))
   abline(model1)
   if(i==1){
