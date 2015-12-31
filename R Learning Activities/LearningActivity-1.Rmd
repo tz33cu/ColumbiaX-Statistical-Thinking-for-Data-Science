@@ -37,7 +37,7 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 ### Basic opertaions
 First let's load some data. Type `data()` in the `Console` window will open a list of all the datasets that were included with the standard installation. 
 
-`R` uses basic syntax for simple arithmetics. In the following, the gray blocks are `R` codes you can tyep into the `console` window to try them out. The white blaocks are outputs. 
+`R` uses basic syntax for simple arithmetics. In the following, the gray blocks are `R` codes you can type into the `console` window to try them out. The white blaocks are outputs. 
 
 ```{r}
 2+3

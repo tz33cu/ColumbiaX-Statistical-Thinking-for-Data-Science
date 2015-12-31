@@ -27,3 +27,9 @@ The folder *R Learning activities* contains some R learning activities we create
 These learning activities are given during week 3 of our edX course. All these RMarkdown files can be run after installing R, Rstudio, and the knitr package. We use data sets that come with standard R installation. These RMarkdown (rmd) files are intended to be downloaded locally and run on your personal computer. Download these files to your computer and save them in a designated folder (such as one created for this course). To explore the R codes, in Rstudio, use the file menu to open the saved RMarkdown file and click on "knit html". 
 
 <img src="https://rstudioblog.files.wordpress.com/2014/06/r-markdown-formats.png" width="500" />
+
+#### Week 5
+
+The folder *R Learning activities* contains another R learning activity we created for week 5 of our [course I](https://www.edx.org/course/statistical-thinking-data-science-columbiax-ds101x) "Statistical Thinking for Data Science and Analytics" for the [ColumbiaX series on Data Science and Analytics](http://datascience.columbia.edu/columbia-and-edx-launch-online-data-science-education-series) on [edX](https://www.edx.org/xseries/data-science-analytics-context). 
+
+- [Learning activity BDA](https://github.com/tz33cu/ColumbiaX-Statistical-Thinking-for-Data-Science/blob/master/R%20Learning%20Activities/LearningActivity-BDA.Rmd): Bayesian Data Analysis with Stan.
