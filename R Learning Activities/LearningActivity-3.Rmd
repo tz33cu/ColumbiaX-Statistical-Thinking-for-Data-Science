@@ -81,10 +81,10 @@ In the above output, the intercept is $b_0$ and the coeffient under the column (
 
 ### Sampling uncertainty in regression analysis
 
-Consider a population of 50 states and we identify the true regression line in this population. Here the function `abline` add a straight line to an existing plot.
+Consider a population of 50 states and we identify the true regression line in this population. Here the function `abline` adds a straight line to an existing plot.
 ```{r}
 plot(life.exp~inc, data=statedata,
-      xlab="Life Expectancy", ylab="Income")
+      xlab="Income", ylab="Life Expectancy")
 abline(model1)
 ```
 
