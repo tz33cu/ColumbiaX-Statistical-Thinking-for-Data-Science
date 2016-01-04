@@ -1,0 +1,317 @@
+---
+title: "User Plot Tutorial"
+author: "Bob Minnich"
+date: "Jan 2, 2016"
+output: html_document
+---
+
+To be able to view the completed output with the code please visit the following: [ColumbiaX: DS101X Users- Code and Plots](http://minnich49.github.io/edX-Statistical-Thinking/).  
+
+###Load Libraries
+The following commands will load the required libraries. 
+```{r, message=F, warning=F}
+library(rworldmap)
+library(ggplot2)
+setwd('/Users/bobminnich/Documents/Columbia/edX Course')
+```
+
+If you get an error, you may need to install the libraries using the following as an example:
+
+```{r, eval = FALSE}
+install.packages("rworldmap")
+```
+
+###World Map
+The following code allows us to load the data and to build the map.  
+```{r, message=F, warning=F}
+#Load Data
+df = read.csv("Merged-1.csv", header=T)
+# Get World map and Prepare the Borders
+mapWorld <- borders("world", colour="dark blue", fill="black") 
+# Draw the map and mapWorld to show background map
+mp <- ggplot() +   mapWorld
+#Plot points related to latitude and longitude, with the size and color based on the count
+```
+
+If you are wondering what a function does, and some of it's input parameters you can simply type a "?" then a function to get more information within the Help. ex: `?borders` will give you more information about the function "borders"
+
+Now we will work to add the points (bubbles) using `geom_point`. Here we use the variable count, within our Data Frame to determine the size of the geom_point. 
+
+You can also fix these values by placing your own in. If we had a variable such as Population or GDP for every row (each country), we could use these in place of count.
+
+We code this the same way for color!
+
+```{r, message=F, warning=F}
+mp <- mp + geom_point(data = df, aes(x = Longitude, y = Latitude, size = count, color = count, label = country.name)) 
+
+```
+
+It is also very easy to change the color scaling of the points by adjusting the "low" variable and the "high" variable to different colors. 
+
+You can use any colors that are HTML in color, which can be seen in the following link: [HTML Colors](http://html-color-codes.info/).  
+
+
+By clicking one of the colors you can get the html code. For instance clicking a red color gave me "#FF0000", which you can substitute in for the "red" within the code below.
+```{r, message=F, warning=F}
+#Scale the color based on a gradient from yellow as low to orange as
+mp <- mp + scale_color_gradient(low="red", high="blueviolet")
+
+#Add Title to plot
+mp <- mp + ggtitle("ColumbiaX: DS101X Users - World Map")
+
+#Create Canvas for plotting
+#x11()
+#Plot map
+mp
+```
+
+###World Map - Removed US and India
+
+Because the amount of users is so large, it becomes hard to see the differences in users between the other countries.From the plot above we can see that India and the United States have a much larger user count, which forces all of the other countries into the same bubble size.
+
+By removing the US and India from the Data Frame, we can quickly run the same plot just to see how the other countries vary due to user size.
+
+```{r, message=F, warning=F}
+#Reload Data
+df = read.csv("Merged-1.csv", header=T)
+#Remove US Row
+df = df[c(-177),]
+#Remove India Row
+df = df[c(-81),]
+
+#Same as above map
+mapWorld <- borders("world", colour="dark blue", fill="black") 
+mp <- ggplot() +   mapWorld
+mp <- mp + geom_point(data = df, aes(x = Longitude, y = Latitude, size = count, color = count, label = country.name)) 
+mp <- mp + scale_color_gradient(low="red", high="blueviolet")
+mp <- mp + ggtitle("ColumbiaX: DS101X Users - World Map")
+
+#x11()
+mp
+```
+
+###Scatter Plots
+
+
+Now we will work to make a scatter plot. We use ggplot again to create the plot using the same Data Frame as above. The data is reloaded because we are altering the Data Frame by adding a column that simply numbers each row.
+
+
+We do this step because for every country we need an X Value and a Y Value (count) for the plot
+
+```{r}
+#Load Data
+df = read.csv("Merged-1.csv", header=T)
+
+#Create sequene of numbers from 1 to the number of rows in the Data Frame
+xaxis = c(1:nrow(df))
+
+#Create Canvas
+#x11()
+
+#Create Plot
+scatter = ggplot(df, aes(x=xaxis, y=(count), size=count, label=country.name),guide=FALSE)+
+  #Create Points
+  geom_point(colour="white", fill="blue", shape=21, alpha = 0.5)+ 
+  #Add X Label
+  xlab("Country")+
+  #Add Y Label
+  ylab("Count")+
+  #Add Main Title
+  ggtitle("ColumbiaX: DS101X Users")+
+  #Add Labels to Bubbles
+  geom_text(aes(x=xaxis,y=(count),label=country.alpha3),size=2, hjust = 0.5, vjust = 2.25)
+
+scatter
+```
+
+
+###Scatter Plots - Log
+From above we have some difficulty seeing any differences between the countries due to the outliers, US and India. 
+
+By taking the `log()` of all of count, it allows us to see all of the data and get a better comparison of all of the countries.
+
+```{r}
+df = read.csv("Merged-1.csv", header=T)
+
+#Create sequene of numbers from 1 to the number of rows in the Data Frame
+xaxis = c(1:nrow(df))
+
+#Create Canvas
+#x11()
+
+#Create Plot
+scatter = ggplot(df, aes(x=xaxis, y=log(count), size=count, label=country.name),guide=FALSE)+
+  #Create Points
+  geom_point(colour="white", fill="blue", shape=21, alpha = 0.5)+ 
+  #Add X Label
+  xlab("Country")+
+  #Add Y Label
+  ylab("Log Count")+
+  #Add Main Title
+  ggtitle("ColumbiaX: DS101X Users")+
+  #Add Labels to Bubbles
+  geom_text(aes(x=xaxis,y=log(count),label=country.alpha3),size=2, hjust = 0.7, vjust = 2.25)
+
+scatter
+```
+
+
+
+###Google Charts - using googleVis library with R
+In this section we will show how to use googleVis, which allows you to create HTML files that can be loaded into a website!
+
+The benefit of using Google Charts is that they can quickly be added to a blog or post, and we can develop interaction within the plot. Here we will complete some basic plotting, but the results are sharp, crisp and shoe additional information when you hover your mouse over the datapoint. 
+
+```{r, message=F, warning=F}
+library(googleVis)
+#Load Data
+df = read.csv("Merged-1.csv", header=T)
+
+#Create numbered rows for Data Frame, df, so that we can use this for the x-axis in the Bubble Plot
+xaxis = seq(1,nrow(df))
+
+#Create Log(count) vector to be able more clearly display data
+logcount = log(df$count)
+
+#Add xaxis and logcount to df Data Frame
+df = cbind(df,xaxis, logcount)
+
+width = 800
+height = 800
+```
+
+
+###Create Bubble Chart using Country Codes
+Here we use the `gvisBubbleChart()` function and simply pass it the Data Frame that we have been working with. From there you only need to define the column names for the function to look for.
+
+
+We also create a list for options, which allows us to have more customization over the plot.
+
+```{r results='asis', tidy=TRUE}
+Bubble <- gvisBubbleChart(df, idvar="country.alpha3", 
+                          xvar="xaxis", yvar="logcount",
+                          colorvar="count", sizevar="count",
+                          chartid="Bubble_Chart",
+                          options=list(
+                            colorAxis="{colors: ['lightblue', 'blue']}",
+                            vAxis="{title:'User Count (Log)'}",
+                            hAxis="{title:'Countries'}",
+                            width=width, height=height,
+                            bubble="{textStyle:{color: 'blue',fontName: 'Times-Roman', fontSize:12}}",
+                          explorer= "{actions: ['dragToZoom', 'rightClickToReset'] }", 
+                          title = "ColumbiaX: DS101X Users Bubble Chart"
+                          ))
+plot(Bubble)
+```
+
+
+
+###Create Column Chart using all Countries
+
+The Column Chart has the same concept as the Bubble Chart. Define the Data Frame, then the columns that you want to apply the graph to.
+
+Here again we can see that there is some issue with resolution because of the higher counts of some countries.
+
+```{r}
+#Creat Column Chart 
+Column_all <- gvisColumnChart(df, xvar = "country.alpha3", yvar = "count",
+                          chartid="Column_Chart_All",
+                          options=list(
+                            vAxis="{title:'User Count'}",
+                            hAxis="{title:'Countries'}",
+                            width=width, height=height,
+                            title = "ColumbiaX: DS101X Users Bar Chart"
+                            ))
+plot(Column_all)
+```
+
+
+###Create Column Chart using Top 50
+If we work to split up the countries we will have a better resoltution and can make it easier to read and explore. In this plot we will pass only the top 50 countries sorted by count to the `gvisColumnChart()` function.
+
+We use the `order()` function to be able to create a list of row numbers that are ordered by the count Column within our Data Frame, df.
+
+When we pass this new variable into `df[Row_sort_count,]`, it allows us to only store the Top 50 in the Data Frame, newdata.
+
+R Note: When we type a Data Frame in the format above format it is because we access the rows then columns: `df[Rows,Columns]`. This is basically stating, I wanted the specific rows that Row_sort_count has defined from the DataFrame, df. We leave the Columns portion blank because we want to include all of the columns.
+
+```{r}
+#Creat Column Chart 
+
+#Create a set of row numbers, that are ordered by the Count Column in decreasing order
+Row_sort_count = order(df$count, decreasing = TRUE)
+
+#Create New Dataframe that uses the ordering based on Count
+newdata <- df[Row_sort_count,] 
+
+#Create Column Chart that has the top 50 countries with the highest users so we can have better resolution. We use 1:50 to access the first 50 rows
+Column_50 <- gvisColumnChart(newdata[1:50,], xvar = "country.alpha3", yvar = "count",
+                          chartid="Column_Chart_50",
+                          options=list(
+                            vAxis="{title:'User Count'}",
+                            hAxis="{title:'Countries'}",
+                            width=width, height=height,
+                            title = "ColumbiaX: DS101X-Top 50 Bar Chart"
+                            ))
+plot(Column_50)
+```
+
+###Create Column Chart using the rest of countries
+
+Now we will pass `gvisColumnChart()` a data frame that has the rest of the countries.
+
+We use `51:nrow(newdata)` to access the rows of 51:188 to define the rows for the rest of the countries.
+
+```{r}
+#Create Column Chart that has the rest of the countries with the highest users so we can have better resolution. We use 51:nrow(newdata) to access the rows of 51:188,  nrow(newdata) = 188
+
+Column_other <- gvisColumnChart(newdata[51:nrow(newdata),], xvar = "country.alpha3", yvar = "count",
+                          chartid="Column_Chart_other",
+                          options=list(
+                            vAxis="{title:'User Count'}",
+                            hAxis="{title:'Countries'}",
+                            width=width, height=height,
+                            title = "ColumbiaX: DS101X - Rest of Users Bar Chart"
+                            ))
+plot(Column_other)
+```
+
+
+###Create Pie Chart
+
+The Pie Chart requires some data wrangling before we are able to pass it to the `gvisPieChart` function.
+
+What we need is a group of unique regions, where we have summed all of the users within each region.
+
+We use the function `tapply()` to sum all of the counts, for each of the regions. We can access this data by utilizing the `$` seen below. This allows us to access all of the data within a specific column of the Data Frame. We then use the R function `sum` to add all of these values.
+
+We store this value using `as.vector` because using tapply converts it into a form that `gvisPieChart` has difficulty interpreting.
+
+```{r}
+#Use tapply to use the Sum function to apply to Region and Count. This will count all of the counts, for each region.
+numvar = as.vector(tapply(df$count, df$Region, FUN=sum))
+```
+
+Then we need a unique list of country names that go along with each value. We use `unique()` to grab the unique values of the column Region. Then we apply `sort()` to get them in the same order as `numvar` from above
+
+Because `gvisPieChart` is easiest to use with a Data Frame, we will create a new Data Frame, ndf, then use this to pass to `gvisPieChart`, where we will be able graph it the same way as the Bar Chart and the Bubble Plot.
+
+```{r}
+#Create new Data Frame to use in Pie Chart
+ndf = data.frame(labelvar,numvar)
+Pie <- gvisPieChart(ndf,
+                    options=list(
+                        pieStartAngle = 270,
+                        width=width,
+                        height=height,
+                        #Make slice 4 (Europe) that have an offset for visual affects. It is the value 4 because it is the 4th Region that appears in labelvar.
+                        slices="{4: {offset: 0.2}}",
+                        title='ColumbiaX: DS101X Users Pie Chart: Region',
+                        legend='none',
+                        pieSliceText='label',
+                        pieHole=0.5,
+                        pieSliceTextStyle="{color: 'white',fontName: 'Times-Roman', fontSize:14}"),
+                      chartid="doughnut")
+plot(Pie)
+```
+
