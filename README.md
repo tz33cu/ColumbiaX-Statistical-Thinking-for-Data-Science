@@ -28,6 +28,10 @@ These learning activities are given during week 3 of our edX course. All these R
 
 <img src="https://rstudioblog.files.wordpress.com/2014/06/r-markdown-formats.png" width="500" />
 
+#### Week 4
+
+- [Learning activity 4](https://github.com/tz33cu/ColumbiaX-Statistical-Thinking-for-Data-Science/blob/master/R%20Learning%20Activities/User-Plot-Tutorial.Rmd): visualize the geographical distribution of participants of our edX course. This exercise is contributed by our course assistant Bob Minnich.
+
 #### Week 5
 
 The folder *R Learning activities* contains another R learning activity we created for week 5 of our [course I](https://www.edx.org/course/statistical-thinking-data-science-columbiax-ds101x) "Statistical Thinking for Data Science and Analytics" for the [ColumbiaX series on Data Science and Analytics](http://datascience.columbia.edu/columbia-and-edx-launch-online-data-science-education-series) on [edX](https://www.edx.org/xseries/data-science-analytics-context). 
