@@ -8,9 +8,9 @@ output: html_document
 ### Association between a quantitative variable and a categorical variable. 
 Let's first visualize the `InsectSprays` data. 
 
-- Using the `plot` command, we ask `R` to plot `count` against `spray` from the dataset `InsectSparys`. `xlab` and `ylab` are options we can specify to label the X and Y axes. 
+- Using the `plot` command, we ask `R` to plot `count` against `spray` from the dataset `InsectSprays`. `xlab` and `ylab` are options we can specify to label the X and Y axes. 
 
-- `R` automatically detects that `spary` is a categorical variable and `count` is a quantitative variable. So it uses side-by-side boxplots to visualize variation in Y (`count`) given different values of the X variable (`spray`).
+- `R` automatically detects that `spray` is a categorical variable and `count` is a quantitative variable. So it uses side-by-side boxplots to visualize variation in Y (`count`) given different values of the X variable (`spray`).
 
 ```{r}
 plot(count~spray, data=InsectSprays,
@@ -20,7 +20,7 @@ plot(count~spray, data=InsectSprays,
 
 - In this module, we learnt about the method of *Analysis of Variance*. In the output, you will see a column under the heading `Sum Sq`, which stands for sum of squares. 
 
-- The value in the row `spary` is the group sum of squares (SSG) as the groups are defined by the values of `spray`. The value in the row `Residuals` is the error sum of squares (SSE). 
+- The value in the row `spray` is the group sum of squares (SSG) as the groups are defined by the values of `spray`. The value in the row `Residuals` is the error sum of squares (SSE). 
 
 - The `anova` command evaluate the Analysis of Variance test to see whether the association observed between `spray` and `count` is statistically significant. The null hypothesis is that the mean of `count` does not depend on values of `spray`. 
 
