@@ -34,7 +34,7 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 -  A list is a vector of `R` data objects.
 -  Value assignment using `<-` or `=`.
 
-### Basic opertaions
+### Basic operations
 First let's load some data. Type `data()` in the `Console` window will open a list of all the datasets that were included with the standard installation. 
 
 `R` uses basic syntax for simple arithmetics. In the following, the gray blocks are `R` codes you can type into the `console` window to try them out. The white blocks are outputs. 
